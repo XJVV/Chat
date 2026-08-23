@@ -30,7 +30,7 @@ cssclasses:
 > > ## ⚡ Acción
 > > ```tasks
 > > not done
-> > sort by due
+> > sort by happens
 > > limit 7
 > > ```
 > >
