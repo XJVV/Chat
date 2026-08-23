@@ -174,7 +174,14 @@ if (!attention.length) {
 ```
 
 **→ [[00 System/Analytics|Abrir Analytics completo]]**  
-**→ [[07 Reviews|Ver revisiones]]**
+**→ [[07 Reviews|Ver revisiones]]**  
+**→ [[00 System/Workflows/Workflow - Ciclo de retroalimentacion|Ver workflow de retroalimentación]]**
+
+## 🔄 Revisiones abiertas
+```dataview
+TABLE WITHOUT ID file.link AS "Revisión", signal AS "Señal", decision AS "Decisión", next_action AS "Próxima acción", follow_up AS "Seguimiento"
+FROM "07 Reviews" WHERE type = "review" AND status = "open" SORT follow_up ASC
+```
 
 ## 🔎 Evidencia reciente
 ```dataview
@@ -182,9 +189,9 @@ TABLE WITHOUT ID file.link AS "Evidencia", date AS "Fecha", project AS "Proyecto
 FROM "06 Evidence" WHERE type = "evidence" SORT date DESC LIMIT 10
 ```
 
-## 🔄 Revisiones
+## 🔄 Revisiones recientes
 ```dataview
-TABLE WITHOUT ID file.link AS "Revisión", date AS "Fecha"
+TABLE WITHOUT ID file.link AS "Revisión", date AS "Fecha", status AS "Estado"
 FROM "07 Reviews" WHERE type = "review" SORT date DESC LIMIT 5
 ```
 
