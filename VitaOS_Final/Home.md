@@ -31,7 +31,6 @@ cssclasses:
 > > ```tasks
 > > not done
 > > sort by due
-> > sort by priority
 > > limit 7
 > > ```
 > >
