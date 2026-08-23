@@ -1,0 +1,42 @@
+/* VitaOS — compact dashboard layout */
+.callout[data-callout="columns"] > .callout-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.callout[data-callout="columns"] > .callout-content > .callout {
+  margin: 0;
+}
+
+.callout[data-callout="column"] {
+  height: 100%;
+}
+
+.vitaos-dashboard .callout {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.vitaos-dashboard .dataview.table-view-table {
+  font-size: 0.88em;
+}
+
+.vitaos-dashboard h2,
+.vitaos-dashboard h3 {
+  margin-top: 0.45em;
+  margin-bottom: 0.35em;
+}
+
+.vitaos-dashboard .block-language-dataviewjs,
+.vitaos-dashboard .block-language-dataview,
+.vitaos-dashboard .block-language-tasks {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 900px) {
+  .callout[data-callout="columns"] > .callout-content {
+    grid-template-columns: 1fr;
+  }
+}
