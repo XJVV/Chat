@@ -1,42 +1,86 @@
-/* VitaOS — compact dashboard layout */
-.callout[data-callout="columns"] > .callout-content {
+/* VitaOS — dashboard de pantalla completa */
+
+/* El Home usa todo el ancho disponible de Obsidian, no el ancho de lectura */
+.markdown-preview-view.vitaos-dashboard,
+.markdown-source-view.vitaos-dashboard {
+  --file-line-width: 100%;
+  --file-margins: 1rem;
+}
+
+.markdown-preview-view.vitaos-dashboard .markdown-preview-sizer,
+.markdown-preview-view.vitaos-dashboard .markdown-preview-section,
+.markdown-source-view.vitaos-dashboard .cm-content {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Más espacio útil: Home es un dashboard, no una nota convencional */
+.markdown-preview-view.vitaos-dashboard .markdown-preview-sizer {
+  padding-inline: 2rem !important;
+}
+
+.markdown-source-view.vitaos-dashboard .cm-content {
+  padding-inline: 2rem !important;
+}
+
+/* No necesitamos mostrar propiedades ni el título duplicado dentro del dashboard */
+.markdown-preview-view.vitaos-dashboard .metadata-container,
+.markdown-source-view.vitaos-dashboard .metadata-container,
+.markdown-preview-view.vitaos-dashboard .inline-title,
+.markdown-source-view.vitaos-dashboard .inline-title {
+  display: none !important;
+}
+
+/* Layout principal */
+.vitaos-dashboard .callout[data-callout="columns"] > .callout-content {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
+  gap: 1rem;
+  width: 100%;
 }
 
-.callout[data-callout="columns"] > .callout-content > .callout {
+.vitaos-dashboard .callout[data-callout="columns"] > .callout-content > .callout {
   margin: 0;
+  min-width: 0;
 }
 
-.callout[data-callout="column"] {
+.vitaos-dashboard .callout[data-callout="column"] {
   height: 100%;
+  min-width: 0;
 }
 
+/* Compacto, pero sin aplastar el contenido */
 .vitaos-dashboard .callout {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 .vitaos-dashboard .dataview.table-view-table {
+  width: 100%;
   font-size: 0.88em;
 }
 
 .vitaos-dashboard h2,
 .vitaos-dashboard h3 {
-  margin-top: 0.45em;
-  margin-bottom: 0.35em;
+  margin-top: 0.4em;
+  margin-bottom: 0.3em;
 }
 
 .vitaos-dashboard .block-language-dataviewjs,
 .vitaos-dashboard .block-language-dataview,
 .vitaos-dashboard .block-language-tasks {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-top: 0.15rem;
+  margin-bottom: 0.15rem;
 }
 
+/* En pantallas pequeñas volvemos a una sola columna */
 @media (max-width: 900px) {
-  .callout[data-callout="columns"] > .callout-content {
+  .vitaos-dashboard .callout[data-callout="columns"] > .callout-content {
     grid-template-columns: 1fr;
+  }
+
+  .markdown-preview-view.vitaos-dashboard .markdown-preview-sizer,
+  .markdown-source-view.vitaos-dashboard .cm-content {
+    padding-inline: 1rem !important;
   }
 }
