@@ -49,7 +49,7 @@ data: |
   const match = content.match(/^current_period:\s*(.+)$/m);
   if (!match) return [];
   const period = match[1].trim();
-  const records = dv.pages('"04 Estudios"').where(p => p.type === "study-record" && p.period === period && p.date && p.hours);
+  const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.date && p.hours);
   const weeks = {};
   for (const r of records) {
     const d = new Date(r.date.toString());
@@ -105,7 +105,7 @@ data: |
   const match = content.match(/^current_period:\s*(.+)$/m);
   if (!match) return [];
   const period = match[1].trim();
-  const records = dv.pages('"04 Estudios"').where(p => p.type === "study-record" && p.period === period && p.hours);
+  const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.hours);
   const subjects = {};
   for (const r of records) {
     const subject = r.subject ?? "Sin materia";
@@ -149,7 +149,7 @@ data: |
   const match = content.match(/^current_period:\s*(.+)$/m);
   if (!match) return [];
   const period = match[1].trim();
-  const records = dv.pages('"04 Estudios"').where(p => p.type === "study-record" && p.period === period && p.performance);
+  const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.performance);
   const subjects = {};
   for (const r of records) {
     const subject = r.subject ?? "Sin materia";
@@ -194,7 +194,7 @@ data: |
   const match = content.match(/^current_period:\s*(.+)$/m);
   if (!match) return [];
   const period = match[1].trim();
-  const records = dv.pages('"04 Estudios"').where(p => p.type === "study-record" && p.period === period && p.date && p.performance);
+  const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.date && p.performance);
   return records.sort((a,b) => new Date(a.date) - new Date(b.date)).map(r => ({
     date: r.date.toString(),
     performance: Number(r.performance)
@@ -238,7 +238,7 @@ data: |
   const match = content.match(/^current_period:\s*(.+)$/m);
   if (!match) return [];
   const period = match[1].trim();
-  const records = dv.pages('"04 Estudios"').where(p => p.type === "study-record" && p.period === period && p.difficulty && p.performance);
+  const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.difficulty && p.performance);
   return records.map(r => ({
     difficulty: Number(r.difficulty),
     performance: Number(r.performance),
@@ -284,7 +284,7 @@ data: |
   const match = content.match(/^current_period:\s*(.+)$/m);
   if (!match) return [];
   const period = match[1].trim();
-  const records = dv.pages('"04 Estudios"').where(p => p.type === "study-record" && p.period === period && p.difficulty && p.hours);
+  const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.difficulty && p.hours);
   return records.map(r => ({
     difficulty: Number(r.difficulty),
     hours: Number(r.hours),
