@@ -51,7 +51,7 @@ cssclasses:
 > > const match = config.match(/^current_period:\s*(.+)$/m);
 > > const period = match ? match[1].trim() : null;
 > > if (!period) { dv.paragraph("⚠️ Falta current_period"); return; }
-> > const records = dv.pages('"04 Estudios"').where(p => p.type === "study-record" && p.period === period && p.date);
+> > const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.date);
 > > const now = new Date();
 > > const day = now.getDay();
 > > const diff = day === 0 ? -6 : 1 - day;
@@ -66,7 +66,7 @@ cssclasses:
 > >
 > > ## 🔄 Atención
 > > ```dataviewjs
-> > const records = dv.pages('"04 Estudios"').where(p => p.type === "study-record" && p.period);
+> > const records = dv.pages().where(p => p.type === "study-record" && p.period);
 > > const subjects = {};
 > > for (const r of records) { const s = r.subject ?? "Sin materia"; if (!subjects[s]) subjects[s] = {d:[],p:[]}; if (r.difficulty != null) subjects[s].d.push(Number(r.difficulty)); if (r.performance != null) subjects[s].p.push(Number(r.performance)); }
 > > const attention = Object.entries(subjects).map(([subject,v]) => ({subject,d:v.d.length?v.d.reduce((a,b)=>a+b,0)/v.d.length:null,p:v.p.length?v.p.reduce((a,b)=>a+b,0)/v.p.length:null})).filter(x => (x.p != null && x.p < 70) || (x.d != null && x.d >= 8));
