@@ -195,9 +195,16 @@ data: |
   if (!match) return [];
   const period = match[1].trim();
   const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.date && p.performance);
-  return records.sort((a,b) => new Date(a.date) - new Date(b.date)).map(r => ({
-    date: r.date.toString(),
-    performance: Number(r.performance)
+  const byDate = {};
+  for (const r of records) {
+    const date = new Date(r.date.toString());
+    const key = date.toISOString().slice(0, 10);
+    if (!byDate[key]) byDate[key] = [];
+    byDate[key].push(Number(r.performance));
+  }
+  return Object.entries(byDate).sort((a,b) => a[0].localeCompare(b[0])).map(([date, values]) => ({
+    date: new Date(date + "T12:00:00").toLocaleDateString("es-DO", {day:"2-digit", month:"short"}),
+    performance: Number((values.reduce((a,b) => a+b, 0) / values.length).toFixed(1))
   }));
 
 #-----------------#
@@ -206,7 +213,6 @@ data: |
 options:
   xField: "date"
   yField: "performance"
-  smooth: true
   point:
     size: 4
     shape: "circle"
@@ -225,7 +231,7 @@ options:
 #-----------------#
 #- chart type    -#
 #-----------------#
-type: Scatter
+type: Line
 
 #-----------------#
 #- chart data    -#
@@ -239,10 +245,15 @@ data: |
   if (!match) return [];
   const period = match[1].trim();
   const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.difficulty && p.performance);
-  return records.map(r => ({
-    difficulty: Number(r.difficulty),
-    performance: Number(r.performance),
-    subject: r.subject ?? "Sin materia"
+  const byDifficulty = {};
+  for (const r of records) {
+    const d = Number(r.difficulty);
+    if (!byDifficulty[d]) byDifficulty[d] = [];
+    byDifficulty[d].push(Number(r.performance));
+  }
+  return Object.entries(byDifficulty).sort((a,b) => Number(a[0]) - Number(b[0])).map(([difficulty, values]) => ({
+    difficulty: Number(difficulty),
+    performance: Number((values.reduce((a,b) => a+b, 0) / values.length).toFixed(1))
   }));
 
 #-----------------#
@@ -251,12 +262,18 @@ data: |
 options:
   xField: "difficulty"
   yField: "performance"
-  size: 5
+  point:
+    size: 4
+    shape: "circle"
+  xAxis:
+    min: 1
+    max: 10
+    tickCount: 10
+  yAxis:
+    min: 0
+    max: 100
   tooltip:
-    fields:
-      - difficulty
-      - performance
-      - subject
+    showTitle: false
 ```
 
 ---
@@ -271,7 +288,7 @@ options:
 #-----------------#
 #- chart type    -#
 #-----------------#
-type: Scatter
+type: Line
 
 #-----------------#
 #- chart data    -#
@@ -285,10 +302,15 @@ data: |
   if (!match) return [];
   const period = match[1].trim();
   const records = dv.pages().where(p => p.type === "study-record" && p.period === period && p.difficulty && p.hours);
-  return records.map(r => ({
-    difficulty: Number(r.difficulty),
-    hours: Number(r.hours),
-    subject: r.subject ?? "Sin materia"
+  const byDifficulty = {};
+  for (const r of records) {
+    const d = Number(r.difficulty);
+    if (!byDifficulty[d]) byDifficulty[d] = [];
+    byDifficulty[d].push(Number(r.hours));
+  }
+  return Object.entries(byDifficulty).sort((a,b) => Number(a[0]) - Number(b[0])).map(([difficulty, values]) => ({
+    difficulty: Number(difficulty),
+    hours: Number((values.reduce((a,b) => a+b, 0) / values.length).toFixed(2))
   }));
 
 #-----------------#
@@ -297,12 +319,17 @@ data: |
 options:
   xField: "difficulty"
   yField: "hours"
-  size: 5
+  point:
+    size: 4
+    shape: "circle"
+  xAxis:
+    min: 1
+    max: 10
+    tickCount: 10
+  yAxis:
+    min: 0
   tooltip:
-    fields:
-      - difficulty
-      - hours
-      - subject
+    showTitle: false
 ```
 
 ---
